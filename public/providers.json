@@ -1,7 +1,8 @@
 {
-  "$schema": "providers.schema.json",
-  "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!",
-  "anthropic": {},
+  "anthropic": {
+    "$schema": "providers.schema.json",
+    "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!"
+  },
   "mistral": {},
 
   "actionschema-auth": {
