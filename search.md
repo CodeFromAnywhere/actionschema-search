@@ -3,8 +3,8 @@
 # Superfast search
 
 - ✅ For now implement `POST /search` as a simple filter over `providerSlugs` and returns `providers.json` subset
-- Each change made to the input bar, throw it through a `isQuerySearchableValidator => boolean` and if `true`, call `POST /search` and store the response into `localStorage.searches:{"query":{version,createdAt,result}}`.
-- On `GET /search` try getting it from localStorage first (new enough, same version, same query) or call `/search` if not available.
+- ✅ Each change made to the input bar, throw it through a `isQuerySearchableValidator => boolean` and if `true`, call `POST /search` and store the response into `localStorage.searches:{"query":{version,createdAt,result}}`.
+- ✅ On `GET /search` try getting it from localStorage first (new enough, same version, same query) or call `/search` if not available.
 - Results render nicely with app logo + description
 
 <!-- IMPLEMENT THIS ASAP AS A FIRST NICE DEMO -->
