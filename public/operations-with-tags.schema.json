@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "tag": {
+        "type": "string"
+      },
+      "tagDescription": {
+        "type": "string"
+      },
+      "openapiUrl": {
+        "type": "string"
+      },
+      "operationId": {
+        "type": "string"
+      },
+      "openapiId": {
+        "type": ["string", "null"]
+      },
+      "path": {
+        "type": "string"
+      },
+      "serversWithOrigin": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/OpenapiServerObject"
+        }
+      },
+      "method": {
+        "type": "string",
+        "enum": [
+          "get",
+          "put",
+          "post",
+          "delete",
+          "options",
+          "head",
+          "patch",
+          "trace"
+        ]
+      },
+      "summary": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "parameters": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ParameterObject"
+        }
+      },
+      "requestBody": {
+        "$ref": "#/definitions/RequestBodyObject"
+      },
+      "responses": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/ResponseObject"
+        }
+      },
+      "security": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "definitions": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/JSONSchema7"
+        }
+      }
+    },
+    "required": [
+      "tag",
+      "tagDescription",
+      "openapiUrl",
+      "operationId",
+      "path",
+      "serversWithOrigin",
+      "method",
+      "summary",
+      "description",
+      "parameters",
+      "responses"
+    ]
+  },
+  "definitions": {
+    "OpenapiServerObject": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "variables": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "enum": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "default": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": ["default"]
+          }
+        }
+      },
+      "required": ["url"]
+    },
+    "ParameterObject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "in": {
+          "type": "string",
+          "enum": ["query", "header", "path", "cookie"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/definitions/JSONSchema7"
+        }
+      },
+      "required": ["name", "in"]
+    },
+    "RequestBodyObject": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MediaTypeObject"
+          }
+        },
+        "required": {
+          "type": "boolean"
+        }
+      },
+      "required": ["content"]
+    },
+    "ResponseObject": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MediaTypeObject"
+          }
+        }
+      },
+      "required": ["description"]
+    },
+    "MediaTypeObject": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "$ref": "#/definitions/JSONSchema7"
+        },
+        "example": {},
+        "examples": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ExampleObject"
+          }
+        }
+      }
+    },
+    "ExampleObject": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "value": {},
+        "externalValue": {
+          "type": "string"
+        }
+      }
+    },
+    "JSONSchema7": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "items": {},
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

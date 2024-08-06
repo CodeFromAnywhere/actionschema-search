@@ -37,7 +37,7 @@ export const GET = async (request: Request) => {
     )
     .filter(onlyUnique2<{ name: string }>((a, b) => a.name === b.name));
 
-  const operationsPerTag = tags
+  const operationsWithTags = tags
     .concat({ name: "__undefined", description: "No tags present" })
     .map((tag) => {
       const description = tag.description
@@ -58,27 +58,33 @@ export const GET = async (request: Request) => {
 
       const { name } = tag;
 
-      return { name, description, operations: filtered };
+      return filtered.map((x) => ({
+        ...x,
+        tag: name,
+        tagDescription: description,
+      }));
     })
-    .filter(notEmpty);
+    .filter(notEmpty)
+    .flat();
 
   if (isJson) {
-    return new Response(JSON.stringify(operationsPerTag), {
+    return new Response(JSON.stringify(operationsWithTags), {
       headers: { "Content-Type": "application/json" },
       status: 200,
     });
   }
 
-  const llmString = operationsPerTag
-    .map(({ name, description, operations }) => {
-      return `${name}${description}\n${operations
-        .map((item) => {
-          return `- ${item.operationId} - ${item.operation.summary}`;
-        })
-        .join("\n")}`;
-    })
-    .filter(notEmpty)
-    .join("\n\n");
+  const llmString = ``;
+  // const llmString = operationsPerTag
+  //   .map(({ name, description, operations }) => {
+  //     return `${name}${description}\n${operations
+  //       .map((item) => {
+  //         return `- ${item.operationId} - ${item.operation.summary}`;
+  //       })
+  //       .join("\n")}`;
+  //   })
+  //   .filter(notEmpty)
+  //   .join("\n\n");
 
   return new Response(llmString);
 };
