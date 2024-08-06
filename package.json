@@ -7,5 +7,9 @@
     "@types/node": "^20.14.10",
     "openapi-types": "^12.1.3"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "from-anywhere": "^0.0.38",
+    "openapi-util": "^0.0.139"
+  }
 }

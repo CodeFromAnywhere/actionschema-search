@@ -1,0 +1,11 @@
+{
+  "$schema": "https://migrate.actionschema.com/migration-context.schema.json",
+  "useJsImportSuffix": true,
+  "openapis": [
+    {
+      "openapiUrl": "https://search.actionschema.com/openapi.json",
+      "slug": "search",
+      "operationIds": ["summarizeOpenapi"]
+    }
+  ]
+}
