@@ -75,7 +75,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "https://search.actionschema.com/operations-with-tags.schema.json"
+                  "$ref": "#/components/schemas/OperationsWithTags"
                 }
               },
               "text/plain": {
@@ -91,6 +91,12 @@
   },
 
   "components": {
+    "schemas": {
+      "OperationsWithTags": {
+        "$ref": "https://search.actionschema.com/operations-with-tags.schema.json"
+      }
+    },
+
     "securitySchemes": {
       "oauth2": {
         "type": "oauth2",
@@ -104,7 +110,6 @@
           }
         }
       }
-    },
-    "schemas": {}
+    }
   }
 }

@@ -21,18 +21,7 @@ export const GET = async (request: Request) => {
     openapiUrl: provider.openapiUrl,
   });
 
-  const operations = summary["application/json"]
-    ?.map((x) =>
-      x.operations?.map((op) => ({
-        ...op,
-        tag: x.name,
-        tagDescription: x.description,
-      })),
-    )
-    .filter(notEmpty)
-    .flat();
-
-  // TODO: the openapi url, get openapi summary and get semantic similarity per operation summary, then 1 boolaen yes/no by a fast and smart groq LLM (405b?). sort on relevancy
+  // TODO: get semantic similarity per operation summary, then 1 boolaen yes/no by a fast and smart groq LLM (405b?). sort on relevancy
 
   return new Response(JSON.stringify({ operations }), {
     status: 200,
