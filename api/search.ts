@@ -15,8 +15,11 @@ export const POST = async (request: Request) => {
     {},
   );
 
-  return new Response(JSON.stringify(result), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return new Response(
+    JSON.stringify({ result, createdAt: Date.now(), version: 1 }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    },
+  );
 };
