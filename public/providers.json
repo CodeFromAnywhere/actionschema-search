@@ -56,6 +56,7 @@
   },
 
   "saltedge": {
+    "description": "Bank integrations",
     "openapiUrl": "https://docs.saltedge.com/assets/swagger-aisp-v5-services.json"
   },
 
