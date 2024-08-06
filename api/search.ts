@@ -1,4 +1,4 @@
-export const POST = async (request: Request) => {
+export const GET = async (request: Request) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const providers = await fetch(url.origin + "/providers.json").then((res) =>
