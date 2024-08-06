@@ -1,0 +1,10 @@
+{
+  "$schema": "https://spec.actionschema.com/actionschema.json",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" }
+  },
+  "additionalProperties": {
+    "$ref": "https://auth.actionschema.com/data/provider.json"
+  }
+}

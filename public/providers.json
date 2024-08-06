@@ -1,0 +1,504 @@
+{
+  "$schema": "providers.schema.json",
+  "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!",
+  "anthropic": {},
+  "mistral": {},
+
+  "actionschema-auth": {
+    "authorization_url": "https://auth.actionschema.com/client/authorize",
+    "token_url": "https://auth.actionschema.com/client/access_token",
+    "openapiUrl": "https://auth.actionschema.com/openapi.json",
+    "categories": ["auth"],
+    "categoryStack": ["auth"],
+    "hasOauth2": true,
+    "description": "ActionSchema Auth is a central place to manage auth for your agents",
+    "createOauthAppUrl": "https://auth.actionschema.com/admin",
+    "docsUrl": "https://auth.actionschema.com/reference",
+    "scopes": {
+      "actionschema-auth:admin": "Full access to all providers, clients, and permissions",
+      "actionschema-auth:read:user": "Access to ActionSchema Auth UserID, as well as all user IDs of all providers the user logged into.",
+      "actionschema-auth:readonly": "Only read what services are available"
+    }
+  },
+
+  "actionschema-agent": {
+    "openapiUrl": "https://agent.actionschema.com/openapi.json",
+    "description": "This API provides functionality for managing and interacting with AI agents. Here's a brief summary: It allows users to create, list, update, and remove AI agents. The API also supports user interactions with these agents through a messaging system. Key features include agent authentication, user signup for specific agents, retrieving agent details and OpenAPI specifications, and managing conversation threads. The API is designed to facilitate the creation and use of customizable AI assistants with specific instructions and capabilities.",
+    "scopes": {
+      "admin": "Access to all your agents",
+      "user:{agentSlug}": "Access to use an agent",
+      "admin:{agentSlug}": "Access to manage an agent"
+    }
+  },
+
+  "actionschema-data": {
+    "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment.",
+    "openapiUrl": "https://data.actionschema.com/openapi.json",
+    "scopes": {
+      "admin": "Access to managing all projects",
+      "user:project:{projectSlug}": "Access to use all databases in a project, with or without user separation.",
+      "user:project:{projectSlug}:read": "Access to read all databases in a project, and write to all user-separated databases.",
+      "admin:project:{projectSlug}": "Access to manage an entire project",
+      "admin:db:{databaseSlug}": "Access to manage a database"
+    }
+  },
+
+  "screenless": {
+    "openapiUrl": "https://screenless.org",
+    "scopes": {
+      "read:transcript": "Read access to all transcripts",
+      "read:recording": "Read access to all recordings",
+      "delete": "Delete access of recordings/transcripts and analysis of the admin",
+      "admin": "Manage everything including delete",
+      "analysis": "Access to submit analysis back to the screenless store"
+    }
+  },
+
+  "saltedge": {
+    "openapiUrl": "https://docs.saltedge.com/assets/swagger-aisp-v5-services.json"
+  },
+
+  "wakatime": {
+    "token_url": "https://wakatime.com/oauth/token",
+    "authorization_url": "https://wakatime.com/oauth/authorize",
+    "integrationsDocsUrl": "https://wakatime.com/developers#authentication",
+    "revoke_url": "https://wakatime.com/oauth/revoke",
+    "refresh_url": "https://wakatime.com/oauth/token",
+    "createOauthAppUrl": "https://wakatime.com/apps",
+    "scopesUrl": "https://wakatime.com/developers#authentication",
+    "hasOauth2": true,
+    "signupUrl": "https://wakatime.com/signup",
+    "sourceUrl": "https://github.com/wakatime",
+    "billingUrl": "https://wakatime.com/settings/billing",
+    "categories": ["code"],
+    "categoryStack": ["code", "analysis"],
+    "description": "API for measuring and analysis your time coded from various code editors",
+    "docsUrl": "https://wakatime.com/developers",
+    "_openapiUrl": "TODO: make it myself. draft in handmade, including the 2 most important ones"
+  },
+
+  "bunq": {
+    "openapiUrl": "https://raw.githubusercontent.com/bunq/doc/master/swagger.json",
+    "hasOauth2": true,
+    "token_url": "https://api.oauth.bunq.com/v1/token?grant_type=authorization_code",
+    "authorization_url": "https://oauth.bunq.com/auth",
+    "docsUrl": "https://doc.bunq.com/",
+    "categoryStack": ["banking"],
+    "isTrustedOauthLink": true,
+    "description": "Bunq is a Dutch bank that has a great developer experience"
+  },
+
+  "github-reader": {
+    "description": "This API allows users to fetch and unzip files from a specified GitHub repository branch, with options to filter results by file extensions and directories.",
+    "openapiUrl": "https://github.actionschema.com/openapi.json"
+  },
+
+  "actionschema-explorer": {
+    "openapiUrl": "https://explorer.actionschema.com/openapi.json"
+  },
+
+  "openapi-util": {
+    "openapiUrl": "https://openapi-util.actionschema.com/openapi.json",
+    "description": "This API provides tools for working with OpenAPI specifications. It allows users to merge, prune, and summarize OpenAPIs, generate SDK configurations and full SDKs, and even create custom endpoints through AI assistance."
+  },
+
+  "supabase": {
+    "token_url": "https://api.supabase.com/v1/oauth/token",
+    "authorization_url": "https://api.supabase.com/v1/oauth/authorize",
+    "openapiUrl": "https://api.supabase.com/api/v1-json",
+    "description": "Create hosted Postgres Databases with API",
+    "apiManagementUrl": "https://supabase.com/dashboard/account/tokens",
+    "hasOauth2": true,
+    "createOauthAppUrl": "https://supabase.com/dashboard",
+    "docsUrl": "https://supabase.com/docs",
+    "sourceUrl": "https://github.com/supabase/supabase",
+    "categoryStack": ["coding", "hosting", "serverless"],
+    "categories": ["coding", "hosting", "serverless"],
+    "scopesUrl": "https://supabase.com/docs/guides/platform/oauth-apps/oauth-scopes",
+    "scopes": {}
+  },
+
+  "slack": {
+    "docsUrl": "https://api.slack.com/apis",
+    "categoryStack": ["chat"],
+    "openapiUrl": "https://raw.githubusercontent.com/slackapi/slack-api-specs/master/web-api/slack_web_openapi_v2.json",
+    "description": "A very common app used for communication at work",
+    "categories": ["productivity"],
+    "hasOauth2": true,
+    "authorization_url": "https://slack.com/oauth/v2/authorize",
+    "token_url": "https://slack.com/api/oauth.v2.access",
+    "token_response_metadata": [
+      "incoming_webhook.url",
+      "incoming_webhook.channel",
+      "incoming_webhook.channel_id",
+      "bot_user_id",
+      "team.id"
+    ],
+    "proxy": {
+      "base_url": "https://slack.com/api",
+      "paginate": {
+        "type": "cursor",
+        "cursor_path_in_response": "response_metadata.next_cursor",
+        "cursor_name_in_request": "cursor",
+        "limit_name_in_request": "limit"
+      }
+    },
+    "webhook_routing_script": "slack-webhook-routing",
+    "createOauthAppUrl": "https://api.slack.com/apps?new_app=1",
+    "scopesUrl": "https://api.slack.com/scopes",
+    "scopes": {
+      "admin": "Administer a workspace",
+      "admin.analytics:read": "Access analytics data about the organization",
+      "admin.app_activities:read": "View execution logs within an organization",
+      "admin.apps:read": "View apps and app requests in a workspace",
+      "admin.apps:write": "Manage apps in a workspace",
+      "admin.barriers:read": "Read information barriers in the organization",
+      "admin.barriers:write": "Manage information barriers in the organization",
+      "admin.conversations:read": "View the channel's member list, topic, purpose and channel name",
+      "admin.conversations:write": "Start a new conversation, modify a conversation and modify channel details",
+      "admin.invites:read": "Gain information about invite requests in a Grid organization",
+      "admin.invites:write": "Approve or deny invite requests in a Grid organization",
+      "admin.roles:read": "List role assignments for your workspace",
+      "admin.roles:write": "Add and remove role assignments for your workspace",
+      "admin.teams:read": "Access information about a workspace",
+      "admin.teams:write": "Make changes to a workspace",
+      "admin.usergroups:read": "Access information about user groups",
+      "admin.usergroups:write": "Make changes to your usergroups",
+      "admin.users:read": "Access a workspace's profile information",
+      "admin.users:write": "Modify account information",
+      "admin.workflows:read": "View all workflows in a workspace",
+      "admin.workflows:write": "Manage workflows in a workspace",
+      "app_configurations:read": "Read app configuration info via App Manifest APIs",
+      "app_configurations:write": "Write app configuration info and create apps via App Manifest APIs",
+      "app_mentions:read": "View messages that directly mention @your_slack_app in conversations that the app is in",
+      "apps.requests:write": "Create or cancel an App Approval request on user's behalf",
+      "auditlogs:read": "View events from all workspaces, channels and users (Enterprise Grid only)",
+      "bookmarks:read": "List bookmarks",
+      "bookmarks:write": "Create, edit, and remove bookmarks",
+      "calls:read": "View information about ongoing and past calls",
+      "calls:write": "Start and manage calls in a workspace",
+      "canvases:read": "Your slack app will be able to access contents of canvases created inside Slack",
+      "canvases:write": "Your slack app will be able to create, edit and remove canvases",
+      "channels:history": "View messages and other content in public channels that your slack app has been added to",
+      "channels:join": "Join public channels in a workspace",
+      "channels:manage": "Manage public channels that your slack app has been added to and create new ones",
+      "channels:read": "View basic information about public channels in a workspace",
+      "channels:write": "Manage a user's public channels and create new ones on a user's behalf",
+      "channels:write.invites": "Invite members to public channels",
+      "channels:write.topic": "Set the description of public channels",
+      "chat:write": "Post messages in approved channels & conversations",
+      "chat:write.customize": "Send messages as @your_slack_app with a customized username and avatar",
+      "chat:write.public": "Send messages to channels @your_slack_app isn't a member of",
+      "chat:write:bot": "Send messages as your slack app",
+      "chat:write:user": "Send messages on a user's behalf",
+      "commands": "Add shortcuts and/or slash commands that people can use",
+      "conversations.connect:manage": "Allows your slack app to manage Slack Connect channels",
+      "conversations.connect:read": "Receive Slack Connect invite events sent to the channels your slack app is in",
+      "conversations.connect:write": "Create Slack Connect invitations for channels that your slack app has been added to, and accept invitations sent to your slack app",
+      "datastore:read": "View and see data from Slack App Datastore",
+      "datastore:write": "Write data to Slack App Datastore",
+      "dnd:read": "View Do Not Disturb settings for people in a workspace",
+      "dnd:write": "Edit a user's Do Not Disturb settings",
+      "email": "View a user's email address",
+      "emoji:read": "View custom emoji in a workspace",
+      "files:read": "View files shared in channels and conversations that your slack app has been added to",
+      "files:write": "Upload, edit, and delete files as your slack app",
+      "files:write:user": "Upload, edit, and delete files as your slack app",
+      "groups:history": "View messages and other content in private channels that your slack app has been added to",
+      "groups:read": "View basic information about private channels that your slack app has been added to",
+      "groups:write": "Manage private channels that your slack app has been added to and create new ones",
+      "groups:write.invites": "Invite members to private channels",
+      "groups:write.topic": "Set the description of private channels",
+      "hosting:read": "View and see information about Slack apps",
+      "hosting:write": "Manage and deploy Slack apps",
+      "identity.avatar": "View a user's Slack avatar",
+      "identity.basic": "View information about a user's identity",
+      "identity.email": "View a user's email address",
+      "identity.team": "View a user's Slack workspace name",
+      "im:history": "View messages and other content in direct messages that your slack app has been added to",
+      "im:read": "View basic information about direct messages that your slack app has been added to",
+      "im:write": "Start direct messages with people",
+      "incoming-webhook": "Create one-way webhooks to post messages to a specific channel",
+      "links.embed:write": "Embed video player URLs in messages and app surfaces",
+      "links:read": "View URLs in messages",
+      "links:write": "Show previews of URLs in messages",
+      "metadata.message:read": "Allows your slack app to read message metadata in channels that your slack app has been added to",
+      "mpim:history": "View messages and other content in group direct messages that your slack app has been added to",
+      "mpim:read": "View basic information about group direct messages that your slack app has been added to",
+      "mpim:write": "Start group direct messages with people",
+      "mpim:write.invites": "Invite members to group direct messages",
+      "mpim:write.topic": "Set the description in group direct messages",
+      "none": "Execute methods without needing a scope",
+      "openid": "View information about a user's identity",
+      "pins:read": "View pinned content in channels and conversations that your slack app has been added to",
+      "pins:write": "Add and remove pinned messages and files",
+      "profile": "View a user's Slack avatar and Slack workspace's basic information",
+      "reactions:read": "View emoji reactions and their associated content in channels and conversations that your slack app has been added to",
+      "reactions:write": "Add and edit emoji reactions",
+      "reminders:read": "View reminders created by your slack app",
+      "reminders:write": "Add, remove, or mark reminders as complete",
+      "remote_files:read": "View remote files added by the app in a workspace",
+      "remote_files:share": "Share remote files on a user's behalf",
+      "remote_files:write": "Add, edit, and delete remote files on a user's behalf",
+      "search:read": "Search a workspace's content",
+      "stars:read": "View messages and files that your slack app has starred",
+      "stars:write": "Add or remove stars",
+      "team.billing:read": "Allows your slack app to read the billing plan for workspaces your slack app has been installed to",
+      "team.preferences:read": "Allows your slack app to read the preferences for workspaces your slack app has been installed to",
+      "team:read": "View the name, email domain, and icon for workspaces your slack app is connected to",
+      "tokens.basic": "Execute methods without needing a scope",
+      "triggers:read": "Read new Platform triggers",
+      "triggers:write": "Create new Platform triggers",
+      "usergroups:read": "View user groups in a workspace",
+      "usergroups:write": "Create and manage user groups",
+      "users.profile:read": "View profile details about people in a workspace",
+      "users.profile:write": "Edit a user's profile information and status",
+      "users:read": "View people in a workspace",
+      "users:read.email": "View email addresses of people in a workspace",
+      "users:write": "Set presence for your slack app",
+      "workflow.steps:execute": "Add steps that people can use in Workflow Builder"
+    }
+  },
+
+  "vercel": {
+    "categoryStack": ["coding", "hosting", "serverless"],
+    "openapiUrl": "https://openapi.vercel.sh",
+    "categories": ["dev-tools"],
+    "hasOauth2": true,
+
+    "docsUrl": "https://vercel.com/docs/rest-api",
+    "integrationsDocsUrl": "https://vercel.com/docs/rest-api/vercel-api-integrations",
+    "createOauthAppUrl": "https://vercel.com/code-from-anywheres-projects/~/integrations/create",
+    "authorization_url": "https://vercel.com/integrations/{slug}/new",
+    "token_url": "https://api.vercel.com/v2/oauth/access_token",
+    "description": "Vercel is a cloud hosting solution for full stack applications",
+    "scopesUrl": "https://vercel.com/docs/rest-api/vercel-api-integrations#scopes",
+    "scopes": {
+      "integration-configuration": "Interact with the installation of your integration",
+      "deployment": "Interact with deployments",
+      "deployment-check": "Verify deployments with Checks",
+      "edge-config": "Create and manage Edge Configs and their tokens",
+      "project": "Access project details and settings",
+      "project-env-vars": "Create and manage integration-owned project environment variables",
+      "global-project-env-vars": "Create and manage all account project environment variables",
+      "team": "Access team details",
+      "user": "Get information about the current user",
+      "log-drain": "Create and manage log drains to forward logs",
+      "domain": "Manage and interact with domains and certificates. Write permissions are required for both `project` and `domain` when updating the domain of a project."
+    }
+  },
+
+  "github": {
+    "isTrustedOauthLink": true,
+    "docsUrl": "https://docs.github.com/en/rest",
+    "description": "GitHub is where one hosts their code in a central location, to collaborate with others",
+    "categoryStack": ["coding", "git"],
+    "openapiUrl": "https://openapi.actionschema.com/githubcom-ghes-30/openapi.json",
+    "createOauthAppUrl": "https://github.com/settings/apps/new",
+    "categories": ["dev-tools", "support", "ticketing"],
+    "hasOauth2": true,
+    "authorization_url": "https://github.com/login/oauth/authorize",
+    "token_url": "https://github.com/login/oauth/access_token",
+    "proxy": {
+      "base_url": "https://api.github.com",
+      "retry": {
+        "at": "x-ratelimit-reset"
+      },
+      "paginate": {
+        "type": "link",
+        "limit_name_in_request": "per_page",
+        "link_rel_in_response_header": "next"
+      }
+    },
+
+    "scopesUrl": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps",
+    "scopes": {
+      "": "Grants read-only access to public information (including user profile info, repository info, and gists)",
+      "repo": "Grants full access to public and private repositories including read and write access to code, commit statuses, repository invitations, collaborators, deployment statuses, and repository webhooks. Also grants access to manage organization-owned resources including projects, invitations, team memberships and webhooks, and ability to manage projects owned by users.",
+      "repo:status": "Grants read/write access to commit statuses in public and private repositories. This scope is only necessary to grant other users or services access to private repository commit statuses without granting access to the code.",
+      "repo_deployment": "Grants access to deployment statuses for public and private repositories. This scope is only necessary to grant other users or services access to deployment statuses, without granting access to the code.",
+      "public_repo": "Limits access to public repositories. That includes read/write access to code, commit statuses, repository projects, collaborators, and deployment statuses for public repositories and organizations. Also required for starring public repositories.",
+      "repo:invite": "Grants accept/decline abilities for invitations to collaborate on a repository. This scope is only necessary to grant other users or services access to invites without granting access to the code.",
+      "security_events": "Grants read and write access to security events in the code scanning API. This scope is only necessary to grant other users or services access to security events without granting access to the code.",
+      "admin:repo_hook": "Grants read, write, ping, and delete access to repository hooks in public or private repositories.",
+      "write:repo_hook": "Grants read, write, and ping access to hooks in public or private repositories.",
+      "read:repo_hook": "Grants read and ping access to hooks in public or private repositories.",
+      "admin:org": "Fully manage the organization and its teams, projects, and memberships.",
+      "write:org": "Read and write access to organization membership and organization projects.",
+      "read:org": "Read-only access to organization membership, organization projects, and team membership.",
+      "admin:public_key": "Fully manage public keys.",
+      "write:public_key": "Create, list, and view details for public keys.",
+      "read:public_key": "List and view details for public keys.",
+      "admin:org_hook": "Grants read, write, ping, and delete access to organization hooks. OAuth tokens will only be able to perform these actions on organization hooks which were created by the OAuth app. Personal access tokens will only be able to perform these actions on organization hooks created by a user.",
+      "gist": "Grants write access to gists.",
+      "notifications": "Grants read access to a user's notifications, mark as read access to threads, watch and unwatch access to a repository, and read, write, and delete access to thread subscriptions.",
+      "user": "Grants read/write access to profile info only. Note that this scope includes user:email and user:follow.",
+      "read:user": "Grants access to read a user's profile data.",
+      "user:email": "Grants read access to a user's email addresses.",
+      "user:follow": "Grants access to follow or unfollow other users.",
+      "project": "Grants read/write access to user and organization projects.",
+      "read:project": "Grants read only access to user and organization projects.",
+      "delete_repo": "Grants access to delete adminable repositories.",
+      "write:packages": "Grants access to upload or publish a package in GitHub Packages.",
+      "read:packages": "Grants access to download or install packages from GitHub Packages.",
+      "delete:packages": "Grants access to delete packages from GitHub Packages.",
+      "admin:gpg_key": "Fully manage GPG keys.",
+      "write:gpg_key": "Create, list, and view details for GPG keys.",
+      "read:gpg_key": "List and view details for GPG keys.",
+      "codespace": "Grants the ability to create and manage codespaces. Codespaces can expose a GITHUB_TOKEN which may have a different set of scopes.",
+      "workflow": "Grants the ability to add and update GitHub Actions workflow files. Workflow files can be committed without this scope if the same file (with both the same path and contents) exists on another branch in the same repository. Workflow files can expose GITHUB_TOKEN which may have a different set of scopes."
+    }
+  },
+
+  "twitter-v2": {
+    "isTrustedOauthLink": true,
+    "scopesUrl": "https://developer.x.com/en/docs/authentication/guides/v2-authentication-mapping",
+    "description": "Twitter",
+    "categoryStack": ["social"],
+
+    "openapiUrl": "https://openapi.actionschema.com/twittercom-current/openapi.json",
+    "createOauthAppUrl": "https://developer.x.com/en/portal/dashboard",
+    "categories": ["marketing", "social"],
+    "hasOauth2": true,
+    "authorization_url": "https://twitter.com/i/oauth2/authorize",
+    "token_url": "https://api.twitter.com/2/oauth2/token",
+    "token_request_auth_method": "basic",
+    "authorization_params": {
+      "response_type": "code",
+      "response_mode": "query"
+    },
+    "token_params": {
+      "grant_type": "authorization_code"
+    },
+    "refresh_params": {
+      "grant_type": "refresh_token"
+    },
+    "default_scopes": ["offline.access"],
+
+    "proxy": {
+      "base_url": "https://api.twitter.com"
+    }
+  },
+
+  "openai": {
+    "description": "OpenAI is a large AI service provider providing state of the art models in various modalities.",
+    "openapiUrl": "https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml",
+
+    "openapiUrl2": "https://openapi.actionschema.com/openai/openapi.json",
+    "auth_mode": "API_KEY",
+    "apiManagementUrl": "https://platform.openai.com/api-keys",
+    "authorization_url": "https://platform.openai.com/login",
+    "signupUrl": "https://platform.openai.com/signup",
+    "categoryStack": ["ai"],
+    "docsUrl": "https://platform.openai.com/docs/overview"
+  },
+
+  "flyio": { "openapiUrl": "https://docs.machines.dev/spec/openapi3.json" },
+  "heygen": { "openapiUrl": "https://openai-plugin.heygen.com/openapi.yaml" },
+  "replicate": { "openapiUrl": "https://api.replicate.com/openapi.json" },
+
+  "vapi": { "openapiUrl": "https://api.vapi.ai/api-json" },
+  "klippa": { "openapiUrl": "https://dochorizon.klippa.com/api/open-api.yaml" },
+  "uberduck": { "openapiUrl": "https://api.uberduck.ai/openapi.json" },
+
+  "cloudflare": {
+    "openapiUrl": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
+  },
+  "twilio": {
+    "openapiUrl": "https://github.com/twilio/twilio-oai/tree/main/spec/json"
+  },
+  "sendgrid": {
+    "openapiUrl": "https://raw.githubusercontent.com/sendgrid/sendgrid-oai/main/oai.json"
+  },
+  "linode": {
+    "openapiUrl": "https://www.linode.com/docs/api/openapi.yaml",
+    "auth_mode": "OAUTH2"
+  },
+  "firecrawl": {
+    "auth_mode": "BEARER",
+    "openapiUrl": "https://raw.githubusercontent.com/mendableai/firecrawl/main/apps/api/openapi.json"
+  },
+  "playht": {
+    "auth_mode": "API_KEY",
+    "openapiUrl": "https://raw.githubusercontent.com/cielo24/playht-openapi/main/playht.yml"
+  },
+  "browserless": {
+    "openapiUrl": "https://docs.browserless.io/redocusaurus/plugin-redoc-0.yaml"
+  },
+  "convertapi": { "openapiUrl": "https://v2.convertapi.com/info/openapi" },
+  "serper": {
+    "openapiUrl": "https://explorer.actionschema.com/serper/openapi.json",
+    "auth_mode": "API_KEY"
+  },
+
+  "doppio": {
+    "openapiUrl": "https://explorer.actionschema.com/doppio/openapi.json",
+    "auth_mode": "BEARER"
+  },
+  "multion": {
+    "openapiUrl": "https://explorer.actionschema.com/multion/openapi.json",
+    "auth_mode": "BEARER"
+  },
+  "hackernews": {
+    "openapiUrl": "https://explorer.actionschema.com/multion/hackernews.json",
+    "auth_mode": "PUBLIC"
+  },
+
+  "groq": {
+    "openapiUrl": "https://groq-openapi.vercel.app/openapi.json",
+    "apiManagementUrl": "https://console.groq.com/keys",
+    "docsUrl": "https://console.groq.com/docs/quickstart",
+    "auth_mode": "BEARER"
+  },
+
+  "huggingface": {
+    "hasOauth2": true,
+    "scopesUrl": "https://huggingface.co/docs/hub/oauth",
+    "openidConfiguration": "https://huggingface.co/.well-known/openid-configuration",
+    "openapiUrl": "https://raw.githubusercontent.com/huggingface/text-generation-inference/main/docs/openapi.json",
+    "openapiUrl2": "https://api.endpoints.huggingface.cloud/api-doc/openapi.json"
+  },
+
+  "twilio-messaging": {
+    "openapiUrl": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_messaging_v1.json",
+    "auth_mode": "BASIC"
+  },
+  "stripe-express": {
+    "categories": ["payment"],
+    "hasOauth2": true,
+    "authorization_url": "https://connect.stripe.com/express/oauth/authorize",
+    "token_url": "https://connect.stripe.com/oauth/token",
+    "token_response_metadata": ["stripe_user_id"],
+    "proxy": {
+      "base_url": "https://api.stripe.com"
+    },
+    "docs": "https://docs.nango.dev/integrations/all/stripe-express"
+  },
+  "stripe-app": {
+    "categories": ["payment"],
+    "hasOauth2": true,
+    "authorization_url": "https://marketplace.stripe.com/oauth/v2/authorize",
+    "token_url": "https://api.stripe.com/v1/oauth/token",
+    "disable_pkce": true,
+    "proxy": {
+      "base_url": "https://api.stripe.com"
+    },
+    "refresh_params": {
+      "grant_type": "refresh_token"
+    },
+    "docs": "https://docs.nango.dev/integrations/all/stripe-app"
+  },
+  "stripe-app-sandbox": {
+    "hasOauth2": true,
+    "authorization_url": "https://marketplace.stripe.com/oauth/v2/${connectionConfig.appDomain}/authorize",
+    "token_url": "https://api.stripe.com/v1/oauth/token",
+    "disable_pkce": true,
+    "proxy": {
+      "base_url": "https://api.stripe.com"
+    },
+    "refresh_params": {
+      "grant_type": "refresh_token"
+    },
+    "docs": "https://docs.nango.dev/integrations/all/stripe-app"
+  }
+}
