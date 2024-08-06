@@ -19,6 +19,16 @@ Search is the vital first step that comes before endpoint authentication and exe
 - ✅ Added a dynamic `reference.html` and link to it via `search.html`
 - To allow for longer queries, can do a match of providerslug on each word that contains one, for now.
 
+# ❗️ JSON Schema & OAS Validation
+
+Still get errors like `JSONParserError: Token "OperationsWithTags" does not exist.` and `JSONParserError: Token "paths" does not exist`
+
+Ensure the OAS and schema gets validated at every step.
+
+I now don't have any requirements and input validation on all my functions. It'd be great if things could be validated first before putting it into the function because it's wasting me a lot of time already if I can't locate the bug. Things are getting complex.
+
+If something is wrong
+
 # Provider search and selection
 
 - For each provider result, call `/search/operations?q=%s&providerSlug={%p}` with same prompt and find top operations.
