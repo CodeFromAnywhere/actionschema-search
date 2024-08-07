@@ -1,6 +1,6 @@
 import { tryParseJson } from "from-anywhere";
 
-export const DEFAULT_MODEL = "llama-3.1-8B-instant"; // "llama-3.1-70b-versatile";
+export const DEFAULT_MODEL = "mixtral-8x7b-32768"; //best at JSON // "llama-3.1-70b-versatile";
 
 export const groqChatCompletion = async (context: {
   GROQ_API_KEY: string;

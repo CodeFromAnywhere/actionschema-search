@@ -30,7 +30,7 @@ export const getOperationsForAction = async (context: {
     tagDescription: string;
     openapiUrl: string;
     operationId: string;
-    summary?: string;
+    operation?: { summary?: string };
   }[];
 
   const summary = tryParseJson<Summary>(response);
@@ -47,8 +47,8 @@ export const getOperationsForAction = async (context: {
     
 ${summary
   .filter((x) => x.tag === tag)
-  .map(({ operationId, summary }) => {
-    return `- ${operationId} - ${summary || ""}`;
+  .map(({ operationId, operation }) => {
+    return `- ${operationId} - ${operation?.summary || ""}`;
   })
   .join("\n")}`;
     })

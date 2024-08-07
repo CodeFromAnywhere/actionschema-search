@@ -8,7 +8,7 @@
     "description": "API specification for search endpoints"
   },
   "security": [{ "oauth2": [] }],
-  "servers": [{ "url": "https://search.actionschema.com/api" }],
+  "servers": [{ "url": "/api" }],
   "paths": {
     "/audio/translations": {
       "post": {
@@ -100,7 +100,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "segment": {
+                          "querySegment": {
                             "type": "string"
                           },
                           "actionDescription": {

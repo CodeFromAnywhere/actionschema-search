@@ -18,21 +18,10 @@ Search is the vital first step that comes before endpoint authentication and exe
 - ✅ Added a small link on `search.html` that links to a form to sign up for API Waitlist. In this form, also explain the features.
 - ✅ Added a dynamic `reference.html` and link to it via `search.html`
 
-# ❗️ JSON Schema & OAS Validation
-
-Still get errors like `JSONParserError: Token "OperationsWithTags" does not exist.` and `JSONParserError: Token "paths" does not exist`
-
-Ensure the OAS and schema gets validated at every endpoint or function, even if it takes some resources... It's needed!
-
-I now don't have any requirements and input validation on all my functions. It'd be great if things could be validated first before putting it into the function because it's wasting me a lot of time already if I can't locate the bug. Things are getting complex.
-
-Ensure to fail the pipeline on invalidation at any step...
-
 # Provider search and selection
 
-- `/search/providers`: To allow for longer queries, can do a match of providerslug on each word that contains one, for now.
-- For each provider result, call `/search/operations?q=%s&providerSlug={%p}` with same prompt and find top operations. For now just take first 10.
-- Render the operations after they're loaded behind a button, in an expandable list
+- ✅ For each provider result, call `/search/operations?q=%s&providerSlug={%p}` with same prompt and find top operations.
+- Render all operations in a list
 - Render select all and select each operation, so you can make a selection.
 - For each operation, add 'try it now' button linking to `reference.html` in a new tab
 - Link to https://auth.actionschema.com/client/create?selection={providerSlug}:{operationId,operationId,operationId}&selection={....} to create a new client or add it to an existing client.

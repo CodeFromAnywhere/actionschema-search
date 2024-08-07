@@ -1,10 +1,29 @@
-import { notEmpty, tryParseJson } from "from-anywhere";
+import { notEmpty, onlyUnique2, tryParseJson } from "from-anywhere";
 import { groqChatCompletion } from "../../src/groqChatCompletion.js";
 import { getOperationsForAction } from "../../src/getOperationsForAction.js";
 
 type ActionMap = {
-  actions: { segment: string; actionDescription: string }[];
+  actions: { querySegment: string; actionDescription: string }[];
 };
+
+/**
+
+The main issue with 'providers' is the amount of LLM calls now, hitting the ratelimit and timelimit quickly.
+
+It performs the following steps:
+- Determine actions: 1x ===> n actions
+- Determine providers: n ===> p providers
+- Determine operations: n*p ====> n*p*o operations
+
+Example: If there are 4 actions, and ~2 providers per action:
+- it will do 13 queries. 
+- chain length is 3 llm calls
+- Some queries may already be in the thousands of tokens
+
+The cost of 1 such query is already fairly high, but worth it considering the value it brings, if we find a good way to charge for it.
+
+
+ */
 export const GET = async (request: Request) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
@@ -29,7 +48,7 @@ export const GET = async (request: Request) => {
   const actionMap: ActionMap | null =
     useActionMap && q && response
       ? tryParseJson<ActionMap>(response)
-      : { actions: q ? [{ segment: q, actionDescription: q }] : [] };
+      : { actions: q ? [{ querySegment: q, actionDescription: q }] : [] };
 
   if (!actionMap || !actionMap.actions) {
     return new Response(`ActionMap went wrong: ${response}`, { status: 500 });
@@ -45,7 +64,7 @@ export const GET = async (request: Request) => {
     })
     .join("\n");
 
-  const providersPerAction = (
+  const actions = (
     await Promise.all(
       actionMap.actions.map(async (item) => {
         const system = `Which provider or providers are likely suitable for the users action?
@@ -91,7 +110,7 @@ If there are no suitable providers, respond with an empty array in providerSlugs
                       ...item,
                       summary: operations.summary?.find(
                         (x) => x.operationId === item.operationId,
-                      )?.summary,
+                      )?.operation?.summary,
                     })),
                     provider: providers[providerSlug],
                   };
@@ -112,8 +131,73 @@ If there are no suitable providers, respond with an empty array in providerSlugs
     )
   ).filter(notEmpty);
 
+  // map it from providers per action to oas/operationIds and actions per operation
+
+  const uniqueOperations = actions
+    .map((item) =>
+      item.providers?.map((n) =>
+        n.operations.map((x) => {
+          return { providerSlug: n.providerSlug, operationId: x.operationId };
+        }),
+      ),
+    )
+
+    .flat(2)
+    .filter(notEmpty)
+    .filter(
+      onlyUnique2<{ providerSlug: string; operationId: string }>(
+        (a, b) =>
+          a.operationId === b.operationId && a.providerSlug === b.providerSlug,
+      ),
+    );
+
+  const operations = uniqueOperations.map((o) => {
+    const a = actions
+      .map((x) => {
+        const perProvider = x.providers
+          ?.map((item) => {
+            const operationItem = item.operations.find(
+              (x) =>
+                x.operationId === o.operationId &&
+                item.providerSlug === o.providerSlug,
+            );
+            if (!operationItem) {
+              return;
+            }
+            return {
+              providerSlug: item.providerSlug,
+              ...operationItem,
+              provider: item.provider,
+            };
+          })
+          .filter(notEmpty);
+
+        return perProvider?.map((k) => ({
+          querySegment: x.querySegment,
+          actionDescription: x.actionDescription,
+          ...k,
+        }));
+      })
+      .filter(notEmpty)
+      .flat();
+
+    const { operationId, providerSlug, provider, summary } = a[0];
+
+    return {
+      operationId,
+      providerSlug,
+      provider,
+      summary,
+      actions: a.map(
+        ({ provider, providerSlug, operationId, summary, ...rest }) => rest,
+      ),
+    };
+  });
+
   const json = {
-    actions: providersPerAction,
+    actions,
+    operations,
+    query: q,
     createdAt: Date.now(),
     version: 1,
   };

@@ -34,20 +34,22 @@ export const GET = async (request: Request) => {
 
       Respond in structured JSON format with the following structure: 
       
-      {
-        /** 
-         * Only make it an action if it's likely to be possible to be using some sort of API. 
-         * Omit general query segments such as 'i want to make an app' or 'i have an idea'
-         */
-        actions: Array<{
-        /** Always take the biggest segment of the query that fits to one action possible */
-        querySegment:string,
-        /** 
-         * The action description should include information about desired functionality, not input details.
-         * Also it must mention service providers, if specified.
-         */
-        actionDescription:string
-      }> }`,
+      
+\`\`\`json
+{
+
+  "actions": Array<{
+  // Always take the biggest segment of the query that fits to one action possible
+  "querySegment":string,
+  // The action description should include information about desired functionality, not input details. Also it must mention service providers, if specified.
+  "actionDescription":string
+}> 
+}
+\`\`\`
+
+Please note: Only make it an action if it's likely to be possible to be using some sort of API. 
+Omit general query segments such as 'i want to make an app' or 'i have an idea'
+       `,
     });
 
     if (!contentBig) {
