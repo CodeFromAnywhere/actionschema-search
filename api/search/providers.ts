@@ -128,7 +128,7 @@ If there are no suitable providers, respond with an empty array in providerSlugs
                       const buildUrl = prunedOpenapiUrl
                         ? `https://eval.actionschema.com/new.html?context=${encodeURIComponent(prunedOpenapiUrl)}&q=Please+build+me+a+Vercel+serverless+endpoint+that+uses+this&send=false`
                         : undefined;
-                      const providerUrl = `https://actionschema.com/api/${providerSlug}`;
+                      const providerUrl = `https://actionschema.com/apps/${providerSlug}/integrations`;
 
                       return {
                         ...item,
