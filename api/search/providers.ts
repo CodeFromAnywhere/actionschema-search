@@ -31,7 +31,7 @@ export const GET = async (request: Request) => {
       ? tryParseJson<ActionMap>(response)
       : { actions: q ? [{ segment: q, actionDescription: q }] : [] };
 
-  if (!actionMap) {
+  if (!actionMap || !actionMap.actions) {
     return new Response(`ActionMap went wrong: ${response}`, { status: 500 });
   }
 
