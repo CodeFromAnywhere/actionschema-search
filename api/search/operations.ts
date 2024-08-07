@@ -17,7 +17,7 @@ export const GET = async (request: Request) => {
     return new Response("Provider not found", { status: 422 });
   }
 
-  const summary = await client.search("summarizeOpenapi", {
+  const operations = await client.search("summarizeOpenapi", {
     openapiUrl: provider.openapiUrl,
   });
 
