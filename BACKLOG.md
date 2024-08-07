@@ -1,4 +1,6 @@
-Improving the reliability:
+# Login
+
+Login button at API should allow for easy access to a token. I probably need to create a client for ActionSchema.com that retrieves the access token of the services directly.
 
 # JSONGPT
 

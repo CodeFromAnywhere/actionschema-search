@@ -168,7 +168,7 @@
   "slack": {
     "docsUrl": "https://api.slack.com/apis",
     "categoryStack": ["chat"],
-    "openapiUrl": "https://raw.githubusercontent.com/slackapi/slack-api-specs/master/web-api/slack_web_openapi_v2.json",
+    "openapiUrl": "https://api.apis.guru/v2/specs/slack.com/1.7.0/openapi.json",
     "description": "A very common app used for communication at work",
     "categories": ["productivity"],
     "hasOauth2": true,
