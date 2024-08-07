@@ -66,13 +66,12 @@ export const GET = async (request: Request) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error calling Groq API:", error);
     return new Response(
       JSON.stringify({
         error:
-          "An error occurred while processing your request" +
-          JSON.stringify(error),
+          "An error occurred while processing your request" + error.message,
       }),
       {
         status: 500,
