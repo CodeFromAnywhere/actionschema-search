@@ -23,7 +23,6 @@ const llmActionmap = async (GROQ_API_KEY: string, q: string, model: string) => {
           },
         ],
         temperature: 0.7,
-        max_tokens: 150,
         response_format: { type: "json_object" },
       }),
     },
