@@ -14,8 +14,15 @@ const llmActionmap = async (GROQ_API_KEY: string, q: string, model: string) => {
         messages: [
           {
             role: "system",
-            content:
-              "You are an AI assistant that extracts actions from user queries and returns them in a structured JSON format with the following structure: { actions: {querySegment:string,actionDescription:string}[] }\n\nPlease note: Always take the biggest segment of the query that fits to one action possible. Also, the action description should include as much information as possible including contextual information, so no other information is needed to carry out the action.",
+            content: `You are an AI assistant that extracts API action(s) from the user query and returns them. 
+
+Please note: 
+- Always take the biggest segment of the query that fits to one action possible.
+- The action description should include information about desired functionality, not input details. 
+- Only make it an action if it's likely to be possible to be using some sort of API
+- Omit general query segments such as 'i want to make an app' or 'i have an idea'
+
+Respond in structured JSON format with the following structure: { actions: Array<{querySegment:string,actionDescription:string, specifiedProviders: string[]|null}> }`,
           },
           {
             role: "user",
