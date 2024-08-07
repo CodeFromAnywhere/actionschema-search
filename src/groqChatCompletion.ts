@@ -1,6 +1,9 @@
 import { tryParseJson } from "from-anywhere";
 
-export const DEFAULT_MODEL = "mixtral-8x7b-32768"; //best at JSON // "llama-3.1-70b-versatile";
+export const DEFAULT_MODEL = "gemma2-9b-it"; //15k tpm and 30 rpm
+
+// best at json but 5000 tokens per minute : "mixtral-8x7b-32768";
+// big and 130k tpm and 100 qpm... and  but slow + expensive "llama-3.1-70b-versatile";
 
 export const groqChatCompletion = async (context: {
   GROQ_API_KEY: string;
