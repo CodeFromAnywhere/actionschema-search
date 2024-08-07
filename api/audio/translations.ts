@@ -27,8 +27,9 @@ export const POST = async (request: Request): Promise<Response> => {
     );
 
     if (!response.ok) {
+      const error = await response.json();
       throw new Error(
-        `OpenAI API request failed with status ${response.status}`,
+        `OpenAI API request failed with status ${response.status} and json ${JSON.stringify(error)}`,
       );
     }
 
