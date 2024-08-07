@@ -22,7 +22,7 @@ export const GET = async (request: Request) => {
   const response =
     useActionMap && q
       ? await fetch(
-          url.origin + `/api/audio/actionmap?q=${encodeURIComponent(q)}`,
+          url.origin + `/api/search/actionmap?q=${encodeURIComponent(q)}`,
         ).then((res) => res.text())
       : undefined;
 
