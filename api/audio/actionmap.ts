@@ -30,6 +30,7 @@ const llmActionmap = async (GROQ_API_KEY: string, q: string, model: string) => {
   );
 
   const json = await response.json();
+  console.log({ json });
 
   if (!response.ok) {
     throw new Error(
