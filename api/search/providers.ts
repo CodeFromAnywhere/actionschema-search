@@ -106,14 +106,39 @@ If there are no suitable providers, respond with an empty array in providerSlugs
                   if (!operations?.operations) {
                     return;
                   }
+
                   return {
                     providerSlug,
-                    operations: operations?.operations.map((item) => ({
-                      ...item,
-                      summary: operations.summary?.find(
+                    operations: operations?.operations.map((item) => {
+                      const operationSummary = operations.summary?.find(
                         (x) => x.operationId === item.operationId,
-                      )?.operation?.summary,
-                    })),
+                      );
+
+                      const openapiUrl = operationSummary?.openapiUrl;
+
+                      const referenceUrl =
+                        openapiUrl && item.operationId
+                          ? `reference.html?openapiUrl=${openapiUrl}#/operations/${item.operationId}`
+                          : undefined;
+                      const loginUrl = `https://auth.actionschema.com/provider/authorize?providerSlug=${providerSlug}&redirect_uri=${encodeURIComponent(`https://actionschema.com/search.html${q ? `?q=${q}` : ""}`)}&selectScopes=1`;
+                      const prunedOpenapiUrl =
+                        openapiUrl && operationSummary.operationId
+                          ? `https://openapi-util.actionschema.com/pruneOpenapi?openapiUrl=${openapiUrl}&operationIds=${operationSummary?.operationId}&dereference=true`
+                          : undefined;
+                      const buildUrl = prunedOpenapiUrl
+                        ? `https://eval.actionschema.com/new.html?context=${encodeURIComponent(prunedOpenapiUrl)}&q=Please+build+me+a+Vercel+serverless+endpoint+that+uses+this&send=false`
+                        : undefined;
+
+                      return {
+                        ...item,
+                        openapiUrl,
+                        referenceUrl,
+                        loginUrl,
+                        prunedOpenapiUrl,
+                        buildUrl,
+                        summary: operationSummary?.operation?.summary,
+                      };
+                    }),
                     provider: providers[providerSlug],
                   };
                 }),
@@ -183,15 +208,41 @@ If there are no suitable providers, respond with an empty array in providerSlugs
       .filter(notEmpty)
       .flat();
 
-    const { operationId, providerSlug, provider, summary } = a[0];
+    const {
+      operationId,
+      providerSlug,
+      provider,
+      summary,
+      buildUrl,
+      loginUrl,
+      openapiUrl,
+      referenceUrl,
+      prunedOpenapiUrl,
+    } = a[0];
 
     return {
       operationId,
       providerSlug,
       provider,
       summary,
+      buildUrl,
+      loginUrl,
+      openapiUrl,
+      referenceUrl,
+      prunedOpenapiUrl,
       actions: a.map(
-        ({ provider, providerSlug, operationId, summary, ...rest }) => rest,
+        ({
+          provider,
+          providerSlug,
+          operationId,
+          summary,
+          buildUrl,
+          loginUrl,
+          openapiUrl,
+          referenceUrl,
+          prunedOpenapiUrl,
+          ...rest
+        }) => rest,
       ),
     };
   });
