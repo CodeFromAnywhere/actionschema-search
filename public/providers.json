@@ -5,6 +5,10 @@
     "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!"
   },
 
+  "notion": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/notion.com/1.0.0/openapi.json"
+  },
+
   "actionschema-auth": {
     "authorization_url": "https://auth.actionschema.com/client/authorize",
     "token_url": "https://auth.actionschema.com/client/access_token",
@@ -465,6 +469,14 @@
   "google-calendar": {
     "description": "Manage your calendars in Google",
     "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/calendar/v3/openapi.json"
+  },
+  "google-analytics4": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analyticsadmin/v1beta/openapi.json",
+    "description": "The Google Analytics Admin API allows for programmatic access to the Google Analytics 4 (GA4) configuration data and is only compatible with GA4 properties"
+  },
+  "google-analytics3": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analytics/v3/openapi.json",
+    "description": "Views and manages your Google Analytics data (GA3)"
   },
   "shopify": {
     "description": "Shopify Admin API",
