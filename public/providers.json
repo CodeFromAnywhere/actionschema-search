@@ -72,6 +72,11 @@
     }
   },
 
+  "actionschema-search": {
+    "description": "Find endpoints for your next app",
+    "openapiUrl": "https://search.actionschema.com/openapi.json"
+  },
+
   "actionschema-data": {
     "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment.",
     "openapiUrl": "https://data.actionschema.com/openapi.json",
@@ -420,6 +425,7 @@
   "cloudflare": {
     "openapiUrl": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
   },
+
   "twilio": {
     "openapiUrl": "https://github.com/twilio/twilio-oai/tree/main/spec/json"
   },
