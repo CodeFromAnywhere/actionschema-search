@@ -91,8 +91,9 @@ If there are no suitable providers, respond with an empty array in providerSlugs
         }
 
         const result = tryParseJson<{ providerSlugs: string[] }>(response);
+        const PROVIDERS_LIMIT = 2;
 
-        const providersArray = result?.providerSlugs
+        const providersArray = result?.providerSlugs.slice(0, PROVIDERS_LIMIT)
           ? (
               await Promise.all(
                 result.providerSlugs.map(async (providerSlug) => {
