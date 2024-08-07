@@ -33,19 +33,19 @@ export const getOperationsForAction = async (context: {
     summary?: string;
   }[];
 
-  const json = tryParseJson<Summary>(response);
-  if (!json) {
+  const summary = tryParseJson<Summary>(response);
+  if (!summary) {
     console.log(`failed summarizing ${providerSlug}`);
     return;
   }
 
-  const summaryString = json
+  const summaryString = summary
     .map((x) => x.tag)
     .filter(onlyUnique2())
     .map((tag) => {
       return `${tag}:
     
-${json
+${summary
   .filter((x) => x.tag === tag)
   .map(({ operationId, summary }) => {
     return `- ${operationId} - ${summary || ""}`;
@@ -87,5 +87,5 @@ Respond with an array of most likely relevant operations in JSON with the follow
     (a, b) => b.likelihood - a.likelihood,
   );
 
-  return { operations: sorted };
+  return { operations: sorted, summary };
 };

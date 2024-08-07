@@ -45,9 +45,10 @@ export const GET = async (request: Request) => {
     })
     .join("\n");
 
-  const providersPerAction = await Promise.all(
-    actionMap.actions.map(async (item) => {
-      const system = `Which provider or providers are likely suitable for the users action?
+  const providersPerAction = (
+    await Promise.all(
+      actionMap.actions.map(async (item) => {
+        const system = `Which provider or providers are likely suitable for the users action?
 
 Available providers (format is {slug}: {description}):
 
@@ -57,53 +58,68 @@ Respond with a JSON in the format { "providerSlugs": string[]}
 
 If there are no suitable providers, respond with an empty array in providerSlugs.`;
 
-      const message = `Action: '${item.actionDescription}'`;
-      const { result: response, error } = await groqChatCompletion({
-        GROQ_API_KEY,
-        system,
-        message,
-      });
+        const message = `Action: '${item.actionDescription}'`;
+        const { result: response, error } = await groqChatCompletion({
+          GROQ_API_KEY,
+          system,
+          message,
+        });
 
-      if (!response) {
-        console.log(`error groq:`, error);
-        return;
-      }
+        if (!response) {
+          console.log(`error groq:`, error);
+          return;
+        }
 
-      const result = tryParseJson<{ providerSlugs: string[] }>(response);
+        const result = tryParseJson<{ providerSlugs: string[] }>(response);
 
-      const providerOperations = result?.providerSlugs
-        ? (
-            await Promise.all(
-              result.providerSlugs.map(async (providerSlug) => {
-                const operations = await getOperationsForAction({
-                  actionDescription: item.actionDescription,
-                  GROQ_API_KEY,
-                  origin: url.origin,
-                  providerSlug,
-                });
-                if (!operations?.operations) {
-                  return;
-                }
-                return { providerSlug, operations: operations?.operations };
-              }),
-            )
-          ).filter(notEmpty)
-        : undefined;
+        const providersArray = result?.providerSlugs
+          ? (
+              await Promise.all(
+                result.providerSlugs.map(async (providerSlug) => {
+                  const operations = await getOperationsForAction({
+                    actionDescription: item.actionDescription,
+                    GROQ_API_KEY,
+                    origin: url.origin,
+                    providerSlug,
+                  });
+                  if (!operations?.operations) {
+                    return;
+                  }
+                  return {
+                    providerSlug,
+                    operations: operations?.operations.map((item) => ({
+                      ...item,
+                      summary: operations.summary?.find(
+                        (x) => x.operationId === item.operationId,
+                      )?.summary,
+                    })),
+                    provider: providers[providerSlug],
+                  };
+                }),
+              )
+            ).filter(notEmpty)
+          : undefined;
 
-      return {
-        ...item,
-        providerSlugs: result?.providerSlugs,
-        providerOperations,
-        error: !result?.providerSlugs ? response : undefined,
-      };
-    }),
-  );
+        const final = {
+          ...item,
+          // providerSlugs: result?.providerSlugs,
+          providers: providersArray,
+          error: !result?.providerSlugs ? response : undefined,
+        };
 
-  return new Response(
-    JSON.stringify({ providersPerAction, createdAt: Date.now(), version: 1 }),
-    {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    },
-  );
+        return final;
+      }),
+    )
+  ).filter(notEmpty);
+
+  const json = {
+    actions: providersPerAction,
+    createdAt: Date.now(),
+    version: 1,
+  };
+
+  return new Response(JSON.stringify(json), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 };
