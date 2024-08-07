@@ -1,0 +1,1 @@
+{"version":3,"file":"groqChatCompletion.d.ts","sourceRoot":"","sources":["../../src/groqChatCompletion.ts"],"names":[],"mappings":"AAEA,eAAO,MAAM,aAAa,4BAA4B,CAAC;AAEvD,eAAO,MAAM,kBAAkB,YAAmB;IAChD,YAAY,EAAE,MAAM,CAAC;IACrB,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,MAAM,EAAE,MAAM,CAAC;IACf,OAAO,EAAE,MAAM,CAAC;CACjB,oBAsCA,CAAC"}

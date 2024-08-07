@@ -72,7 +72,7 @@
         }
       }
     },
-    "/audio/actionmap": {
+    "/search/actionmap": {
       "get": {
         "summary": "Extract actions from a query",
         "description": "Uses Groq's language model to extract actions from a given query and return them in a structured format.",
