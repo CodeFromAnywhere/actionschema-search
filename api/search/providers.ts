@@ -1,14 +1,18 @@
+import { tryParseJson } from "from-anywhere";
+
 export const GET = async (request: Request) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
 
+  let json;
+  let text;
   if (q) {
-    const actions = await fetch(
+    text = await fetch(
       url.origin + `/audio/actionmap?q=${encodeURIComponent(q)}`,
-    ).then((res) => res.json());
-
-    console.log({ actions });
+    ).then((res) => res.text());
+    json = tryParseJson<any>(text);
   }
+  console.log({ text, json });
 
   const providers = await fetch(url.origin + "/providers.json").then((res) =>
     res.json(),
@@ -25,7 +29,7 @@ export const GET = async (request: Request) => {
   );
 
   return new Response(
-    JSON.stringify({ result, createdAt: Date.now(), version: 1 }),
+    JSON.stringify({ result, createdAt: Date.now(), version: 1, text, json }),
     {
       status: 200,
       headers: { "Content-Type": "application/json" },
