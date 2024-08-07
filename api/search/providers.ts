@@ -8,7 +8,7 @@ export const GET = async (request: Request) => {
   let text;
   if (q) {
     text = await fetch(
-      url.origin + `/audio/actionmap?q=${encodeURIComponent(q)}`,
+      url.origin + `/api/audio/actionmap?q=${encodeURIComponent(q)}`,
     ).then((res) => res.text());
     json = tryParseJson<any>(text);
   }
