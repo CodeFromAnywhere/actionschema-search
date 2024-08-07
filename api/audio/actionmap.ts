@@ -56,7 +56,7 @@ export const GET = async (request: Request) => {
     const content = json.choices[0].message.content;
 
     if (typeof content !== "object") {
-      throw new Error(`LLM didn't respond with an object`);
+      throw new Error(`LLM didn't respond with an object... ${content}`);
     }
 
     return new Response(JSON.stringify(content), {
@@ -67,7 +67,9 @@ export const GET = async (request: Request) => {
     console.error("Error calling Groq API:", error);
     return new Response(
       JSON.stringify({
-        error: "An error occurred while processing your request",
+        error:
+          "An error occurred while processing your request" +
+          JSON.stringify(error),
       }),
       {
         status: 500,
