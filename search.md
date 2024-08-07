@@ -10,6 +10,8 @@ Build button should go to https://eval.actionschema.com/new.html?context={pruned
 
 This could simply stream the response back (code + spec + openapi) and get it deployed with the click of a button.
 
-# Search GPT
+# API finder GPT
 
-- Add the links into the API
+The main thing we need to do for this is making it faster as it's currently too slow.
+
+For that, semantic search over the providers will be a good help. Do this low-level.

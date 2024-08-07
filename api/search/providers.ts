@@ -128,10 +128,12 @@ If there are no suitable providers, respond with an empty array in providerSlugs
                       const buildUrl = prunedOpenapiUrl
                         ? `https://eval.actionschema.com/new.html?context=${encodeURIComponent(prunedOpenapiUrl)}&q=Please+build+me+a+Vercel+serverless+endpoint+that+uses+this&send=false`
                         : undefined;
+                      const providerUrl = `https://actionschema.com/api/${providerSlug}`;
 
                       return {
                         ...item,
                         openapiUrl,
+                        providerUrl,
                         referenceUrl,
                         loginUrl,
                         prunedOpenapiUrl,
@@ -218,6 +220,7 @@ If there are no suitable providers, respond with an empty array in providerSlugs
       openapiUrl,
       referenceUrl,
       prunedOpenapiUrl,
+      providerUrl,
     } = a[0];
 
     return {
@@ -230,6 +233,7 @@ If there are no suitable providers, respond with an empty array in providerSlugs
       openapiUrl,
       referenceUrl,
       prunedOpenapiUrl,
+      providerUrl,
       actions: a.map(
         ({
           provider,
@@ -241,6 +245,7 @@ If there are no suitable providers, respond with an empty array in providerSlugs
           openapiUrl,
           referenceUrl,
           prunedOpenapiUrl,
+          providerUrl,
           ...rest
         }) => rest,
       ),
