@@ -30,7 +30,7 @@ const llmActionmap = async (GROQ_API_KEY: string, q: string, model: string) => {
   );
 
   const json = await response.json();
-  console.log({ json });
+  //console.log({ json });
 
   if (!response.ok) {
     throw new Error(
@@ -71,16 +71,21 @@ export const GET = async (request: Request) => {
 
   try {
     const content = await llmActionmap(GROQ_API_KEY, q, "mixtral-8x7b-32768");
-    const content405b = await llmActionmap(
-      GROQ_API_KEY,
-      q,
-      "llama-3.1-405b-reasoning",
-    );
 
-    console.log({
-      content: tryParseJson(content),
-      content405b: tryParseJson(content405b),
-    });
+    //to test other models:
+    // const content405b = await llmActionmap(
+    //   GROQ_API_KEY,
+    //   q,
+    //   "llama-3.1-70b-versatile",
+    // );
+
+    // console.dir(
+    //   {
+    //     content: tryParseJson(content),
+    //        content405b: tryParseJson(content405b),
+    //   },
+    //   { depth: 19 },
+    // );
     return new Response(content, {
       status: 200,
       headers: { "Content-Type": "application/json" },
