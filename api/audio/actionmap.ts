@@ -76,14 +76,14 @@ export const GET = async (request: Request) => {
   }
 
   try {
-    const content = await llmActionmap(GROQ_API_KEY, q, "mixtral-8x7b-32768");
+    // const content = await llmActionmap(GROQ_API_KEY, q, "mixtral-8x7b-32768");
 
     //to test other models:
-    // const content405b = await llmActionmap(
-    //   GROQ_API_KEY,
-    //   q,
-    //   "llama-3.1-70b-versatile",
-    // );
+    const contentBig = await llmActionmap(
+      GROQ_API_KEY,
+      q,
+      "llama-3.1-70b-versatile",
+    );
 
     // console.dir(
     //   {
@@ -92,7 +92,7 @@ export const GET = async (request: Request) => {
     //   },
     //   { depth: 19 },
     // );
-    return new Response(content, {
+    return new Response(contentBig, {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
