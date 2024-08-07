@@ -28,7 +28,8 @@ export const GET = async (request: Request) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   // could be specified by user, but its better to hide as much complexity as possible and do it intelligently. we can simply ask an llm: has this text multiple actions or just 1? is it good enough according to these examples?
-  const useActionMap = q?.length ? q.length > 100 : false;
+  // TODO: turn this on again after we have a better ratelimit!
+  const useActionMap = false; // q?.length ? q.length > 100 : false;
 
   const GROQ_API_KEY = process.env.GROQ_API_KEY;
   if (!GROQ_API_KEY) {

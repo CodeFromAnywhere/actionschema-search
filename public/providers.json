@@ -1,6 +1,6 @@
 {
+  "$schema": "providers.schema.json",
   "anthropic": {
-    "$schema": "providers.schema.json",
     "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!"
   },
   "mistral": {},
@@ -427,7 +427,10 @@
   "browserless": {
     "openapiUrl": "https://docs.browserless.io/redocusaurus/plugin-redoc-0.yaml"
   },
-  "convertapi": { "openapiUrl": "https://v2.convertapi.com/info/openapi" },
+  "convertapi": {
+    "openapiUrl": "https://v2.convertapi.com/info/openapi",
+    "description": "API for converting documents into various formats"
+  },
   "serper": {
     "openapiUrl": "https://explorer.actionschema.com/serper/openapi.json",
     "auth_mode": "API_KEY"
@@ -437,10 +440,12 @@
     "openapiUrl": "https://explorer.actionschema.com/doppio/openapi.json",
     "auth_mode": "BEARER"
   },
+
   "multion": {
     "openapiUrl": "https://explorer.actionschema.com/multion/openapi.json",
     "auth_mode": "BEARER"
   },
+
   "hackernews": {
     "openapiUrl": "https://explorer.actionschema.com/multion/hackernews.json",
     "auth_mode": "PUBLIC"
@@ -451,6 +456,42 @@
     "apiManagementUrl": "https://console.groq.com/keys",
     "docsUrl": "https://console.groq.com/docs/quickstart",
     "auth_mode": "BEARER"
+  },
+  "whatsapp-business": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/whatsapp.local/1.0/openapi.json",
+    "description": "The WhatsApp Business Platform gives medium to large businesses the ability to connect with customers at scale. You can start WhatsApp conversations with your customers in minutes, send them care notifications or purchase updates, offer personalized services, and provide support in the channel that your customers prefer."
+  },
+  "gmail": {
+    "description": "Manage GMail",
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/gmail/v1/openapi.json"
+  },
+  "youtube-data": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/youtube/v3/openapi.json",
+    "description": "The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels."
+  },
+  "google-sheets": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/sheets/v4/openapi.json",
+    "description": "Reads and writes Google Sheets."
+  },
+  "google-docs": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/docs/v1/openapi.json",
+    "description": "Reads and writes Google Docs documents"
+  },
+  "google-drive": {
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/drive/v3/openapi.json",
+    "description": "Manages files in Drive including uploading, downloading, searching, detecting changes, and updating "
+  },
+  "google-secret-manager": {
+    "description": "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/secretmanager/v1beta1/openapi.json"
+  },
+  "google-calendar": {
+    "description": "Manage your calendars in Google",
+    "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/calendar/v3/openapi.json"
+  },
+  "shopify": {
+    "description": "Shopify Admin API",
+    "openapiUrl": "https://raw.githubusercontent.com/allengrant/shopify_openapi/master/shopify_openapi.json"
   },
 
   "huggingface": {
