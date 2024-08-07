@@ -1,3 +1,5 @@
+import { tryParseJson } from "from-anywhere";
+
 export const GET = async (request: Request) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
@@ -53,13 +55,14 @@ export const GET = async (request: Request) => {
       );
     }
 
+    // always a string, but sometimes can be a string that is parseable as the JSON requested
     const content = json.choices[0].message.content;
 
-    if (typeof content !== "object") {
+    if (!tryParseJson(content)) {
       throw new Error(`LLM didn't respond with an object... ${content}`);
     }
 
-    return new Response(JSON.stringify(content), {
+    return new Response(content, {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
