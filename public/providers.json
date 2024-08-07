@@ -1,9 +1,9 @@
 {
-  "$schema": "providers.schema.json",
-  "anthropic": {
+  "TODO": {
+    "$todo": ["anthropic", "mistral"],
+    "$schema": "providers.schema.json",
     "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!"
   },
-  "mistral": {},
 
   "actionschema-auth": {
     "authorization_url": "https://auth.actionschema.com/client/authorize",
@@ -45,7 +45,7 @@
   },
 
   "screenless": {
-    "openapiUrl": "https://screenless.org",
+    "openapiUrl": "https://screenless.org/openapi.json",
     "scopes": {
       "read:transcript": "Read access to all transcripts",
       "read:recording": "Read access to all recordings",
@@ -129,22 +129,7 @@
     "hasOauth2": true,
     "authorization_url": "https://slack.com/oauth/v2/authorize",
     "token_url": "https://slack.com/api/oauth.v2.access",
-    "token_response_metadata": [
-      "incoming_webhook.url",
-      "incoming_webhook.channel",
-      "incoming_webhook.channel_id",
-      "bot_user_id",
-      "team.id"
-    ],
-    "proxy": {
-      "base_url": "https://slack.com/api",
-      "paginate": {
-        "type": "cursor",
-        "cursor_path_in_response": "response_metadata.next_cursor",
-        "cursor_name_in_request": "cursor",
-        "limit_name_in_request": "limit"
-      }
-    },
+
     "webhook_routing_script": "slack-webhook-routing",
     "createOauthAppUrl": "https://api.slack.com/apps?new_app=1",
     "scopesUrl": "https://api.slack.com/scopes",
@@ -301,17 +286,6 @@
     "hasOauth2": true,
     "authorization_url": "https://github.com/login/oauth/authorize",
     "token_url": "https://github.com/login/oauth/access_token",
-    "proxy": {
-      "base_url": "https://api.github.com",
-      "retry": {
-        "at": "x-ratelimit-reset"
-      },
-      "paginate": {
-        "type": "link",
-        "limit_name_in_request": "per_page",
-        "link_rel_in_response_header": "next"
-      }
-    },
 
     "scopesUrl": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps",
     "scopes": {
@@ -396,7 +370,7 @@
   },
 
   "flyio": { "openapiUrl": "https://docs.machines.dev/spec/openapi3.json" },
-  "heygen": { "openapiUrl": "https://openai-plugin.heygen.com/openapi.yaml" },
+
   "replicate": { "openapiUrl": "https://api.replicate.com/openapi.json" },
 
   "vapi": { "openapiUrl": "https://api.vapi.ai/api-json" },
@@ -414,17 +388,20 @@
   },
   "linode": {
     "openapiUrl": "https://www.linode.com/docs/api/openapi.yaml",
-    "auth_mode": "OAUTH2"
+    "hasOauth2": true
   },
   "firecrawl": {
+    "description": "API for crawling",
     "auth_mode": "BEARER",
     "openapiUrl": "https://raw.githubusercontent.com/mendableai/firecrawl/main/apps/api/openapi.json"
   },
   "playht": {
+    "description": "AI Speech API",
     "auth_mode": "API_KEY",
     "openapiUrl": "https://raw.githubusercontent.com/cielo24/playht-openapi/main/playht.yml"
   },
   "browserless": {
+    "description": "Web browsing API",
     "openapiUrl": "https://docs.browserless.io/redocusaurus/plugin-redoc-0.yaml"
   },
   "convertapi": {
@@ -506,42 +483,12 @@
     "openapiUrl": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_messaging_v1.json",
     "auth_mode": "BASIC"
   },
-  "stripe-express": {
+  "stripe": {
     "categories": ["payment"],
     "hasOauth2": true,
-    "authorization_url": "https://connect.stripe.com/express/oauth/authorize",
-    "token_url": "https://connect.stripe.com/oauth/token",
-    "token_response_metadata": ["stripe_user_id"],
-    "proxy": {
-      "base_url": "https://api.stripe.com"
-    },
-    "docs": "https://docs.nango.dev/integrations/all/stripe-express"
-  },
-  "stripe-app": {
-    "categories": ["payment"],
-    "hasOauth2": true,
+    "description": "Create a paywall for your app or invoices",
+    "openapiUrl": "https://api.apis.guru/v2/specs/stripe.com/2022-11-15/openapi.json",
     "authorization_url": "https://marketplace.stripe.com/oauth/v2/authorize",
-    "token_url": "https://api.stripe.com/v1/oauth/token",
-    "disable_pkce": true,
-    "proxy": {
-      "base_url": "https://api.stripe.com"
-    },
-    "refresh_params": {
-      "grant_type": "refresh_token"
-    },
-    "docs": "https://docs.nango.dev/integrations/all/stripe-app"
-  },
-  "stripe-app-sandbox": {
-    "hasOauth2": true,
-    "authorization_url": "https://marketplace.stripe.com/oauth/v2/${connectionConfig.appDomain}/authorize",
-    "token_url": "https://api.stripe.com/v1/oauth/token",
-    "disable_pkce": true,
-    "proxy": {
-      "base_url": "https://api.stripe.com"
-    },
-    "refresh_params": {
-      "grant_type": "refresh_token"
-    },
-    "docs": "https://docs.nango.dev/integrations/all/stripe-app"
+    "token_url": "https://api.stripe.com/v1/oauth/token"
   }
 }
