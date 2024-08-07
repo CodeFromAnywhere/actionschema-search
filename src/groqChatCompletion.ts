@@ -1,6 +1,6 @@
 import { tryParseJson } from "from-anywhere";
 
-export const DEFAULT_MODEL = "llama-3.1-70b-versatile";
+export const DEFAULT_MODEL = "llama-3.1-8B-instant"; // "llama-3.1-70b-versatile";
 
 export const groqChatCompletion = async (context: {
   GROQ_API_KEY: string;
@@ -9,6 +9,13 @@ export const groqChatCompletion = async (context: {
   message: string;
 }) => {
   const { GROQ_API_KEY, message, model, system } = context;
+
+  const messages = [
+    { role: "system", content: system },
+    { role: "user", content: message },
+  ];
+  console.log("GROQ CALL:", messages);
+
   const response = await fetch(
     "https://api.groq.com/openai/v1/chat/completions",
     {
@@ -19,10 +26,7 @@ export const groqChatCompletion = async (context: {
       },
       body: JSON.stringify({
         model: model || DEFAULT_MODEL, // You can change this to another supported model
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: message },
-        ],
+        messages,
         response_format: { type: "json_object" },
       }),
     },
@@ -32,17 +36,24 @@ export const groqChatCompletion = async (context: {
   //console.log({ json });
 
   if (!response.ok) {
-    throw new Error(
-      `HTTP error! status: ${response.status} with JSON: ${JSON.stringify(json)}`,
-    );
+    return {
+      result: undefined,
+      error: `HTTP error! status: ${response.status} with JSON: ${JSON.stringify(json)}`,
+    };
   }
 
   // always a string, but sometimes can be a string that is parseable as the JSON requested
-  const content = json.choices[0].message.content as string;
+  const content = json.choices[0]?.message?.content as string | undefined;
 
-  if (!tryParseJson(content)) {
-    throw new Error(`LLM didn't respond with an object... ${content}`);
+  if (!content || !tryParseJson(content)) {
+    console.log(`GROQ ERROR:`, json);
+    return {
+      result: undefined,
+      error: `LLM didn't respond with an object... ${content}`,
+    };
   }
 
-  return content;
+  console.log(`GROQ JSON:`, tryParseJson(content));
+
+  return { result: content, error: undefined };
 };

@@ -26,7 +26,7 @@ export const GET = async (request: Request) => {
     // const content = await llmActionmap(GROQ_API_KEY, q, "mixtral-8x7b-32768");
 
     //to test other models:
-    const contentBig = await groqChatCompletion({
+    const { error, result: contentBig } = await groqChatCompletion({
       GROQ_API_KEY,
       model: "llama-3.1-70b-versatile",
       message: `Extract actions from this query: \n\n----QUERY--------\n\n${q}\n\n-----END QUERY-------`,
@@ -49,6 +49,10 @@ export const GET = async (request: Request) => {
         actionDescription:string
       }> }`,
     });
+
+    if (!contentBig) {
+      throw new Error(error);
+    }
 
     // console.dir(
     //   {

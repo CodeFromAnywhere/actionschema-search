@@ -49,19 +49,26 @@ export const GET = async (request: Request) => {
     actionMap.actions.map(async (item) => {
       const system = `Which provider or providers are likely suitable for the users action?
 
-Available providers:
+Available providers (format is {slug}: {description}):
 
 ${providersList}
 
+Respond with a JSON in the format { "providerSlugs": string[]}
 
-Respond with a JSON in the format { providerSlugs: string[]}'`;
+If there are no suitable providers, respond with an empty array in providerSlugs.`;
 
       const message = `Action: '${item.actionDescription}'`;
-      const response = await groqChatCompletion({
+      const { result: response, error } = await groqChatCompletion({
         GROQ_API_KEY,
         system,
         message,
       });
+
+      if (!response) {
+        console.log(`error groq:`, error);
+        return;
+      }
+
       const result = tryParseJson<{ providerSlugs: string[] }>(response);
 
       const providerOperations = result?.providerSlugs

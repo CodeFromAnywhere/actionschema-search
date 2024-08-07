@@ -9,6 +9,7 @@ export const GET = async (request: Request) => {
   const openapiUrl = url.searchParams.get("openapiUrl");
   const isJson = request.headers.get("accept") === "application/json";
 
+  console.log({ openapiUrl });
   const openapi = await fetchOpenapi(openapiUrl || undefined);
   const openapiId = openapiUrl;
   const operations =
@@ -67,14 +68,14 @@ export const GET = async (request: Request) => {
     .filter(notEmpty)
     .flat();
 
-  if (isJson) {
-    return new Response(JSON.stringify(operationsWithTags), {
-      headers: { "Content-Type": "application/json" },
-      status: 200,
-    });
-  }
+  // if (isJson) {
+  return new Response(JSON.stringify(operationsWithTags), {
+    headers: { "Content-Type": "application/json" },
+    status: 200,
+  });
+  //}
 
-  const llmString = ``;
+  // const llmString = ``;
   // const llmString = operationsPerTag
   //   .map(({ name, description, operations }) => {
   //     return `${name}${description}\n${operations
@@ -86,5 +87,5 @@ export const GET = async (request: Request) => {
   //   .filter(notEmpty)
   //   .join("\n\n");
 
-  return new Response(llmString);
+  //  return new Response(llmString);
 };
