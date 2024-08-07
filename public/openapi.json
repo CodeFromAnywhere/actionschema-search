@@ -174,19 +174,68 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "result": {
-                      "$ref": "https://search.actionschema.com/providers.schema.json"
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "providers": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "providerSlug": {
+                                  "type": "string"
+                                },
+                                "operations": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "summary": {
+                                        "type": "string"
+                                      },
+                                      "operationId": {
+                                        "type": "string"
+                                      },
+                                      "likelihood": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": ["operationId", "likelihood"]
+                                  }
+                                },
+                                "provider": {
+                                  "$ref": "https://auth.actionschema.com/data/provider.json"
+                                }
+                              },
+                              "required": [
+                                "providerSlug",
+                                "operations",
+                                "provider"
+                              ]
+                            }
+                          },
+                          "error": {
+                            "type": "string"
+                          },
+                          "segment": {
+                            "type": "string"
+                          },
+                          "actionDescription": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     },
                     "createdAt": {
-                      "type": "integer",
-                      "description": "Timestamp of when the response was created"
+                      "type": "number"
                     },
                     "version": {
-                      "type": "integer",
-                      "description": "API version. Useful for cache."
+                      "type": "number"
                     }
                   },
-                  "required": ["result", "createdAt", "version"]
+                  "required": ["actions", "createdAt", "version"]
                 }
               }
             }
