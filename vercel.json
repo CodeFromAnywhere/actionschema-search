@@ -18,5 +18,11 @@
       ]
     }
   ],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  },
   "public": false
 }
