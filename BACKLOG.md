@@ -1,4 +1,4 @@
-improving the reliability:
+Improving the reliability:
 
 # JSON Schema & OAS Validation
 
@@ -25,3 +25,12 @@ The problem here is that we're limited to a minute if we don't stream. I'd love 
 # Resiliency
 
 Hitting the ratelimit is quite common so we'd rather have it retry with wait ms incremental backoff ...
+
+# Auth mapping to search
+
+👨‍🍳 Now we're cooking.....
+
+- If `authToken` is there, use it on search.actionschema.com and using that, also fetch your authenticated providers, and map that onto the search result
+- Also add your own custom providers if you have them, such as agents and cruds, with the proper auth
+- Sort it different, prioritising authed apps
+- Show more details for authed apps.
