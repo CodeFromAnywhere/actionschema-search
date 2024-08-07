@@ -10,6 +10,147 @@
   "security": [{ "oauth2": [] }],
   "servers": [{ "url": "https://search.actionschema.com/api" }],
   "paths": {
+    "/audio/translations": {
+      "post": {
+        "summary": "Translate audio to text",
+        "description": "Accepts an audio file and returns the transcribed text",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The audio file to be translated"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "transcript": {
+                      "type": "string",
+                      "description": "The transcribed text from the audio file"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - No audio file provided",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/audio/actionmap": {
+      "get": {
+        "summary": "Extract actions from a query",
+        "description": "Uses Groq's language model to extract actions from a given query and return them in a structured format.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "The query to extract actions from",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "segment": {
+                            "type": "string"
+                          },
+                          "actionDescription": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["segment", "actionDescription"]
+                      }
+                    }
+                  },
+                  "required": ["actions"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["error"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["error"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/search/providers": {
       "get": {
         "summary": "Search providers",

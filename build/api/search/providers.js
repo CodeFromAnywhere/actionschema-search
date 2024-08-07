@@ -1,6 +1,10 @@
 export const GET = async (request) => {
     const url = new URL(request.url);
     const q = url.searchParams.get("q");
+    if (q) {
+        const actions = await fetch(url.origin + `/audio/actionmap?q=${encodeURIComponent(q)}`).then((res) => res.json());
+        console.log({ actions });
+    }
     const providers = await fetch(url.origin + "/providers.json").then((res) => res.json());
     const keys = !q
         ? Object.keys(providers)

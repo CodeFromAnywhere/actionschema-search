@@ -4,7 +4,7 @@ export const POST = async (request: Request): Promise<Response> => {
     // Get the audio file from the request
     const formData = await request.formData();
     const audioFile = formData.get("file") as File;
-    console.log({ audioFile, groqSecret });
+
     if (!audioFile) {
       return new Response("No audio file provided", { status: 400 });
     }
