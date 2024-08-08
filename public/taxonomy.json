@@ -1,0 +1,37 @@
+{
+  "$schema": "taxonomy.schema.json",
+  "$comment": "I'll keep updating this as the main src of truth of a taxonomy. AI can automatically place items in these categories, but I'll maintain the categories. After changing them a little, re-indexation should occur in a whim.",
+  "ecommerce": null,
+  "ads": null,
+
+  "cloud": {
+    "aws": null,
+    "azure": null,
+    "google": null,
+    "vercel": null,
+    "cloudflare": null
+  },
+  "ai": {
+    "replicate": null,
+    "huggingface": null,
+    "openai": null,
+    "playht": null,
+    "deepgram": null,
+    "groq": null
+  },
+  "search": {},
+  "cms": null,
+  "crm": null,
+  "bi": null,
+  "communication": null,
+  "scraping": null,
+  "knowledge-work": { "$comment": "word, excel, notion etc" },
+  "storage": { "$comment": "github, icloud, drive, dropbox, etc" },
+  "registries": null,
+  "finance": null,
+  "data": null,
+  "social": null,
+  "video": null,
+  "voice": null,
+  "news": null
+}

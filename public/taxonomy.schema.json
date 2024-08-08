@@ -1,0 +1,7 @@
+{
+  "type": "object",
+  "patternProperties": {
+    "^\\$": { "type": "string" },
+    "^[a-zA-Z0-9-_]+$": { "oneOf": [{ "$ref": "#" }, { "type": "null" }] }
+  }
+}

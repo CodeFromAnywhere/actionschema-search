@@ -1,0 +1,38 @@
+---
+"$schema": taxonomy.schema.json
+"$comment":
+  I'll keep updating this as the main src of truth of a taxonomy. AI can
+  automatically place items in these categories, but I'll maintain the categories.
+  After changing them a little, re-indexation should occur in a whim.
+ecommerce:
+ads:
+cloud:
+  aws:
+  azure:
+  google:
+  vercel:
+  cloudflare:
+ai:
+  replicate:
+  huggingface:
+  openai:
+  playht:
+  deepgram:
+  groq:
+search:
+cms:
+crm:
+bi:
+communication:
+scraping:
+knowledge-work:
+  "$comment": word, excel, notion etc
+storage:
+  "$comment": github, icloud, drive, dropbox, etc
+registries:
+finance:
+data:
+social:
+video:
+voice:
+news:

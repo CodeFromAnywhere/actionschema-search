@@ -1,7 +1,5 @@
-import { notEmpty, onlyUnique2, tryParseJson } from "from-anywhere";
-import { client } from "./sdk/client.js";
+import { onlyUnique2, tryParseJson } from "from-anywhere";
 import { groqChatCompletion } from "./groqChatCompletion.js";
-import { JSONSchema7 } from "json-schema";
 
 export const getOperationsForAction = async (context: {
   providerSlug: string;

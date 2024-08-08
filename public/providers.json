@@ -371,6 +371,11 @@
     }
   },
 
+  "bolcom": {
+    "openapiUrl": "https://api.bol.com/retailer/public/apispec/Retailer%20API%20-%20v9",
+    "description": "Dutch shopping platform"
+  },
+
   "twitter-v2": {
     "isTrustedOauthLink": true,
     "scopesUrl": "https://developer.x.com/en/docs/authentication/guides/v2-authentication-mapping",
