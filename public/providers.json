@@ -5,6 +5,11 @@
     "$comment": "Let's make a registry openapi for these... Also, let's work on some scraping and put a description on each of these, and let's do some actionschema stuff on the full JSON. I want the search engine for APIs to be available!"
   },
 
+  "codefromanywhere": {
+    "description": "A collection of useful APIs, built by Code From Anywhere",
+    "openapiUrl": "https://api.codefromanywhere.com/openapi.json"
+  },
+
   "notion": {
     "openapiUrl": "https://api.apis.guru/v2/specs/notion.com/1.0.0/openapi.json"
   },
