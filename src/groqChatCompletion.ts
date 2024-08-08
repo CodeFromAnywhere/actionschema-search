@@ -10,13 +10,14 @@ export const DEFAULT_MODEL = "llama-3.1-70b-versatile";
 export const groqChatCompletion = async (context: {
   GROQ_API_KEY: string;
   model?: string;
-  system: string;
+  system: string | null;
   message: string;
+  responseFormatType?: "text" | "json_object";
 }) => {
-  const { GROQ_API_KEY, message, model, system } = context;
+  const { GROQ_API_KEY, message, model, system, responseFormatType } = context;
 
   const messages = [
-    { role: "system", content: system },
+    { role: "system", content: system || "You are a helpful assistant" },
     { role: "user", content: message },
   ];
   console.log("GROQ CALL:", messages);
@@ -32,7 +33,7 @@ export const groqChatCompletion = async (context: {
       body: JSON.stringify({
         model: model || DEFAULT_MODEL, // You can change this to another supported model
         messages,
-        response_format: { type: "json_object" },
+        response_format: { type: responseFormatType || "text" },
       }),
     },
   );

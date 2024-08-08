@@ -54,6 +54,7 @@ ${summary
 
   const { result: groqOperationArrayString, error } = await groqChatCompletion({
     GROQ_API_KEY,
+    responseFormatType: "json_object",
     system: `Consider the api of ${providerSlug} with the following summary, and determine the relevant operationIds for performing the users action.
     
     

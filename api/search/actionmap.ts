@@ -30,6 +30,7 @@ export const GET = async (request: Request) => {
       GROQ_API_KEY,
       model: "llama-3.1-70b-versatile",
       message: `Extract actions from this query: \n\n----QUERY--------\n\n${q}\n\n-----END QUERY-------`,
+      responseFormatType: "json_object",
       system: `You are an AI assistant that extracts API action(s) from the user query and returns them. 
 
       Respond in structured JSON format with the following structure: 

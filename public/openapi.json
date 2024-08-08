@@ -10,6 +10,66 @@
   "security": [{ "oauth2": [] }],
   "servers": [{ "url": "/api" }],
   "paths": {
+    "/chat/json": {
+      "get": {
+        "operationId": "jsonChatCompletion",
+        "summary": "Get chat completion as JSON",
+        "description": "Retrieves a JSON response from the chat completion service",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The message to send to the chat completion service"
+          },
+          {
+            "name": "system",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional system message for the chat completion service"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/audio/translations": {
       "post": {
         "operationId": "translateAudio",

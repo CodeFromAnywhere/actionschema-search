@@ -79,9 +79,11 @@ Respond with a JSON in the format { "providerSlugs": string[]}
 If there are no suitable providers, respond with an empty array in providerSlugs.`;
 
         const message = `Action: '${item.actionDescription}'`;
+
         const { result: response, error } = await groqChatCompletion({
           GROQ_API_KEY,
           system,
+          responseFormatType: "json_object",
           message,
         });
 
