@@ -120,13 +120,16 @@ If there are no suitable providers, respond with an empty array in providerSlugs
 
                       const referenceUrl =
                         openapiUrl && item.operationId
-                          ? `reference.html?openapiUrl=${openapiUrl}#/operations/${item.operationId}`
+                          ? `https://actionschema.com/reference.html?openapiUrl=${openapiUrl}#/operations/${item.operationId}`
                           : undefined;
-                      const loginUrl = `https://auth.actionschema.com/provider/authorize?providerSlug=${providerSlug}&redirect_uri=${encodeURIComponent(`https://actionschema.com/search/index.html${q ? `?q=${q}` : ""}`)}&selectScopes=1`;
+
                       const prunedOpenapiUrl =
                         openapiUrl && operationSummary.operationId
                           ? `https://openapi-util.actionschema.com/pruneOpenapi?openapiUrl=${openapiUrl}&operationIds=${operationSummary?.operationId}&dereference=true`
                           : undefined;
+
+                      const loginUrl = `https://auth.actionschema.com/provider/authorize?providerSlug=${providerSlug}&redirect_uri=${encodeURIComponent(`https://actionschema.com/search/index.html${q ? `?q=${q}` : ""}`)}&selectScopes=1`;
+
                       const buildUrl = prunedOpenapiUrl
                         ? `https://eval.actionschema.com/new.html?context=${encodeURIComponent(prunedOpenapiUrl)}&q=Please+build+me+a+Vercel+serverless+endpoint+that+uses+this&send=false`
                         : undefined;
